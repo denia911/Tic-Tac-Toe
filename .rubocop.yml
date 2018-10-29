@@ -1,0 +1,243 @@
+# Overrides for default RuboCop configuration.
+
+# Following Cops were enabled:
+
+Style/CollectionMethods:
+  Description: 'Preferred collection methods.'
+  StyleGuide: '#map-find-select-reduce-size'
+  Enabled: true
+
+Layout/FirstArrayElementLineBreak:
+  Description: >-
+                 Checks for a line break before the first element in a
+                 multi-line array.
+  Enabled: true
+
+Layout/FirstHashElementLineBreak:
+  Description: >-
+                 Checks for a line break before the first element in a
+                 multi-line hash.
+  Enabled: true
+
+Style/ImplicitRuntimeError:
+  Description: >-
+                 Use `raise` or `fail` with an explicit exception class and
+                 message, rather than just a message.
+  Enabled: true
+
+Style/MethodCalledOnDoEndBlock:
+  Description: 'Avoid chaining a method call on a do...end block.'
+  StyleGuide: '#single-line-blocks'
+  Enabled: true
+
+Style/Send:
+  Description: 'Prefer `Object#__send__` or `Object#public_send` to `send`, as `send` may overlap with existing methods.'
+  StyleGuide: '#prefer-public-send'
+  Enabled: true
+
+Style/BlockDelimiters:
+  IgnoredMethods:
+    - lambda
+    - proc
+
+Bundler/DuplicatedGem:
+  Enabled: true
+  Include:
+    - '**/Gemfile'
+
+Metrics/BlockLength:
+  Description: 'Avoid long blocks with many lines.'
+  Enabled: true
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'config/routes.rb'
+    - 'config/routes/*.rb'
+    - 'app/api_docs/**/*.rb'
+
+# Following Cops were modified:
+
+LineLength:
+  Description: 'Limit lines to 120 characters.' # was increased from 80 to 100 for this project
+  Enabled: true
+  Max: 120
+
+MethodLength:
+  Description: 'Avoid methods longer than 20 lines of code.' # was increased from 10 to 15 for this project
+  Enabled: true
+  Max: 20
+  Exclude:
+    - 'db/**/*'
+
+Layout/IndentArray:
+  Enabled: true
+  EnforcedStyle: 'consistent'
+
+Layout/IndentHash:
+  Enabled: true
+  EnforcedStyle: 'consistent'
+
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: true
+  EnforcedStyle: 'new_line'
+
+
+# Following Cops were disabled:
+
+Encoding:
+  Description: 'Use UTF-8 as the source file encoding.'
+  Enabled: false
+
+Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false
+
+ClassLength:
+  Description: 'Avoid classes longer than 100 lines of code.'
+  Enabled: false
+
+CyclomaticComplexity:
+  Description: 'Avoid complex methods.'
+  Enabled: false
+
+ClassVars:
+  Description: 'Avoid the use of class variables.'
+  Enabled: false
+
+BlockNesting:
+  Description: 'Avoid excessive block nesting'
+  Enabled: false
+
+Metrics/AbcSize:
+  Description: >-
+                 A calculated magnitude based on number of assignments,
+                 branches, and conditions.
+  Enabled: false
+
+Style/RescueModifier:
+  Description: 'Avoid using rescue in its modifier form.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-rescue-modifiers'
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Description: >-
+                 Add the frozen_string_literal comment to the top of files
+                 to help transition from Ruby 2.3.0 to Ruby 3.0.
+  Enabled: false
+
+Style/EmptyCaseCondition:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Description: 'Avoid modules longer than 100 lines of code.'
+  Enabled: false
+
+
+# Rails cops
+
+Rails:
+  Enabled: true
+
+Rails/Date:
+  Enabled: true
+  EnforcedStyle: 'strict'
+
+Rails/Exit:
+  Enabled: true
+
+Rails/FilePath:
+  Enabled: true
+
+Rails/Output:
+  Enabled: true
+
+Rails/ReversibleMigration:
+  Enabled: true
+
+Rails/ScopeArgs:
+  Enabled: true
+
+Rails/TimeZone:
+  Enabled: true
+  EnforcedStyle: 'flexible'
+
+Rails/HttpPositionalArguments:
+  Enabled: false
+
+Rails/SafeNavigation:
+  Enabled: true
+  ConvertTry: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+
+# RSpec cops
+
+#require: rubocop-rspec
+
+RSpec/DescribedClass:
+  Description: 'Checks that tests use `described_class`.'
+  Enabled: true
+  EnforcedStyle: 'explicit'
+
+RSpec/EmptyExampleGroup:
+  CustomIncludeMethods:
+    - 'it_behaves_like'
+    - 'it_should_behave_like'
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ExampleWording:
+  Enabled: false
+
+RSpec/FilePath:
+  Description: 'Checks that spec file paths are consistent with the test subject.'
+  Enabled: true
+  IgnoreMethods: true
+
+RSpec/ItBehavesLike:
+  Description: 'Checks that only one `it_behaves_like` style is used.'
+  Enabled: false
+
+RSpec/LetSetup:
+  Description: 'Checks unreferenced `let!` calls being used for test setup.'
+  Enabled: false
+
+RSpec/MessageSpies:
+  Description: 'Checks that message expectations are set using spies.'
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Description: 'Checks if examples contain too many `expect` calls.'
+  Enabled: false
+
+RSpec/NestedGroups:
+  Description: 'Checks for nested example groups.'
+  Enabled: false
+
+RSpec/RepeatedExample:
+  Description: 'Check for repeated examples within example groups.'
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Description: 'Prefer using verifying doubles over normal doubles.'
+  Enabled: false
+  IgnoreSymbolicNames: false
+
+RSpec/AnyInstance:
+  Description: 'Check that instances are not being stubbed globally.'
+  Enabled: false
+
+
+# Global configuration:
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/**/*'
+
+  TargetRubyVersion: 2.4.1
+  TargetRailsVersion: 5.1.6
